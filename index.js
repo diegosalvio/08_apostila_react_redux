@@ -27,3 +27,24 @@ const solicitarCashback = (nome, valor) => {
         }
     }
 }
+
+//FUNÇÃO REDUCER
+
+const historicoDePedidosDeCashbackReducer = (historicoDePedidosDeCashbackAtual = [], acao) => {
+    if(acao.type === "SOLICITAR_CASHBACK"){
+        return [
+            ...historicoDePedidosDeCashbackAtual,
+            acao.payload
+        ]
+    }
+    return historicoDePedidosDeCashbackAtual
+}
+
+const caixaReducer = (dinheiroEmCaixa = 0, acao) => {
+    if(acao.type === "SOLICITAR_CASHBACK"){
+        dinheiroEmCaixa = dinheiroEmCaixa - acao.payload.valor;
+    } else if(acao.type === "CRIAR_CONTRATO"){
+        dinheiroEmCaixa = dinheiroEmCaixa + acao.payload.taxa;
+    }
+    return dinheiroEmCaixa
+}
